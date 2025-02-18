@@ -1,0 +1,1 @@
+FROM ghcr.io/gnzsnz/ib-gateway:latest
