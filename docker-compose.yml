@@ -1,0 +1,10 @@
+name: the-pythoness
+secrets:
+  tws_username:
+    file: ./secrets/tws_username.txt
+  tws_password:
+    file: ./secrets/tws_password.txt
+  ssh_passphrase:
+    file: ./secrets/ssh_passphrase.txt
+  vnc_password:
+    file: ./secrets/vnc_password.txt
