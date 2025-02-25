@@ -1,0 +1,44 @@
+name: build test
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set environment variables
+        env:
+          TWS_USERID: ${{ secrets.TWS_USERID }}
+          TWS_PASSWORD: ${{ secrets.TWS_PASSWORD }}
+          TRADING_MODE: ${{ secrets.TRADING_MODE }}
+          TWS_SETTINGS_PATH: ${{ secrets.TWS_SETTINGS_PATH }}
+          TWS_ACCEPT_INCOMING: ${{ secrets.TWS_ACCEPT_INCOMING }}
+          READ_ONLY_API: ${{ secrets.READ_ONLY_API }}
+          VNC_SERVER_PASSWORD: ${{ secrets.VNC_SERVER_PASSWORD }}
+          TWOFA_TIMEOUT_ACTION: ${{ secrets.TWOFA_TIMEOUT_ACTION }}
+          BYPASS_WARNING: ${{ secrets.BYPASS_WARNING }}
+          AUTO_RESTART_TIME: ${{ secrets.AUTO_RESTART_TIME }}
+          AUTO_LOGOFF_TIME: ${{ secrets.AUTO_LOGOFF_TIME }}
+          TWS_COLD_RESTART: ${{ secrets.TWS_COLD_RESTART }}
+          SAVE_TWS_SETTINGS: ${{ secrets.SAVE_TWS_SETTINGS }}
+          RELOGIN_AFTER_TWOFA_TIMEOUT: ${{ secrets.RELOGIN_AFTER_TWOFA_TIMEOUT }}
+          TWOFA_EXIT_INTERVAL: ${{ secrets.TWOFA_EXIT_INTERVAL }}
+          TWOFA_DEVICE: ${{ secrets.TWOFA_DEVICE }}
+          EXISTING_SESSION_DETECTED_ACTION: ${{ secrets.EXISTING_SESSION_DETECTED_ACTION }}
+          ALLOW_BLIND_TRADING: ${{ secrets.ALLOW_BLIND_TRADING }}
+          TIME_ZONE: ${{ secrets.TIME_ZONE }}
+          TZ: ${{ secrets.TZ }}
+          CUSTOM_CONFIG: ${{ secrets.CUSTOM_CONFIG }}
+          JAVA_HEAP_SIZE: ${{ secrets.JAVA_HEAP_SIZE }}
+          SSH_TUNNEL: ${{ secrets.SSH_TUNNEL }}
+          SSH_OPTIONS: ${{ secrets.SSH_OPTIONS }}
+          SSH_ALIVE_INTERVAL: ${{ secrets.SSH_ALIVE_INTERVAL }}
+          SSH_ALIVE_COUNT: ${{ secrets.SSH_ALIVE_COUNT }}
+          SSH_PASSPHRASE: ${{ secrets.SSH_PASSPHRASE }}
+          SSH_REMOTE_PORT: ${{ secrets.SSH_REMOTE_PORT }}
+          SSH_USER_TUNNEL: ${{ secrets.SSH_USER_TUNNEL }}
+          SSH_RESTART: ${{ secrets.SSH_RESTART }}
+          SSH_VNC_PORT: ${{ secrets.SSH_VNC_PORT }}
+      - name: checkout
+        uses: actions/checkout@v2

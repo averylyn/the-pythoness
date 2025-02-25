@@ -1,0 +1,14 @@
+name: the-pythoness
+
+services:
+  ib-gateway:
+    restart: always
+    build:
+      tags:
+        - "ghcr.io/gnzsnz/ib-gateway:stable"
+    image: ghcr.io/gnzsnz/ib-gateway:stable
+    env_file: "ib-gateway.env"
+    ports:
+      - "127.0.0.1:4001:4003"
+      - "127.0.0.1:4002:4004"
+      - "127.0.0.1:5900:5900"
