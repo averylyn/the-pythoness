@@ -3,14 +3,16 @@ the-pythoness breathes in the vapors sublimed from the order book, then diffuses
 
 ## requirements
 
-``` shell [the-pythoness/envs/ib-gateway.env]
-TWS_USERID = $(TWS_USERID)
-TWS_PASSWORD = $(TWS_PASSWORD)
+in 'the-pythoness/envs/ib-gateway.env'
+
+``` shell
+TWS_USERID = ${TWS_USERID}
+TWS_PASSWORD = ${TWS_PASSWORD}
+VNC_SERVER_PASSWORD = ${VNC_SERVER_PASSWORD}
 TRADING_MODE = ${TRADING_MODE:-paper}
 TWS_SETTINGS_PATH = ${TWS_SETTINGS_PATH:-}
 TWS_ACCEPT_INCOMING = ${TWS_ACCEPT_INCOMING:-}
 READ_ONLY_API = ${READ_ONLY_API:-}
-VNC_SERVER_PASSWORD = ${VNC_SERVER_PASSWORD:-}
 TWOFA_TIMEOUT_ACTION = ${TWOFA_TIMEOUT_ACTION:-exit}
 BYPASS_WARNING = ${BYPASS_WARNING:-}
 AUTO_RESTART_TIME = ${AUTO_RESTART_TIME:-}
