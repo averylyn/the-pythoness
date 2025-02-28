@@ -3,6 +3,9 @@ the-pythoness breathes in the vapors sublimed from the order book, then diffuses
 
 ## requirements
 
+must install
+`pip install ibapi pandas matplotlib
+
 in 'the-pythoness/envs/ib-gateway.env'
 
 ``` shell
