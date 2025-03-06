@@ -26,14 +26,27 @@ class IBApi(EClient, EWrapper):
             "Date", "Open", "High", "Low", "Close", "Volume", "Average", "BarCount"])
         df['Date'] = pd.to_datetime(df['Date'], format='%Y%m%d  %H:%M:%S')
         df.set_index('Date', inplace=True)
-        print("creating dataframe for reqId: ", reqId)
+        print("[reqId:" + str(reqId) + "] " + "creating dataframe for historicalData...")
         print(df)
         return super().historicalDataEnd(reqId, start, end)
 
     def historicalTicksBidAsk(self, reqId: int, ticks: ListOfHistoricalTick, done: bool):
-        print("1")
+        data = []
         for tick in ticks:
-            print("HistoricalTick. ReqId:", reqId, tick)
+            data.append([tick.time, tick.priceBid, tick.priceAsk, tick.sizeBid, tick.sizeAsk])
+        df = pd.DataFrame(data, columns=["Time", "PriceBid", "PriceAsk", "SizeBid", "SizeAsk"])
+        df.set_index('Time', inplace=True)
+        print("[reqId:" + str(reqId) + "] " + "creating dataframe for historicalTicksBidAsk...")
+        print(df)
+
+    def mktDepthExchanges(self, depthMktDataDescriptions:ListOfDepthExchanges):
+        super().mktDepthExchanges(depthMktDataDescriptions)
+        data = []
+        for desc in depthMktDataDescriptions:
+            data.append([desc.exchange, desc.secType, desc.listingExch, desc.serviceDataType, desc.aggGroup])
+        df = pd.DataFrame(data, columns=["Exchange", "SecType", "ListingExch", "ServiceDataType", "AggGroup"])
+        print("creating dataframe for mktDepthExchanges...")
+        print(df)
 
     def error(
         self, reqId: TickerId, errorCode : int, errorString : str , advancedOrderRejectJson=""):
