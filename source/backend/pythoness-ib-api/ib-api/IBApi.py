@@ -1,5 +1,6 @@
 from ibapi.client import *
 from ibapi.wrapper import *
+import pandas as pd
 
 class IBApi(EClient, EWrapper):
     def __init__(self):
@@ -17,17 +18,22 @@ class IBApi(EClient, EWrapper):
 
     def historicalData(self, reqId: int, bar: BarData):
         self.data.append([
-            bar.date  , bar.open   , bar.high    , bar.low, bar.close,
-            bar.volume, bar.average, bar.barCount])
+            bar.date  , bar.open   , bar.high    , bar.low     ,
+            bar.close , bar.volume , bar.average , bar.barCount])
 
     def historicalDataEnd(self, reqId: int, start: str, end: str):
         df = pd.DataFrame(self.data, columns=[
             "Date", "Open", "High", "Low", "Close", "Volume", "Average", "BarCount"])
         df['Date'] = pd.to_datetime(df['Date'], format='%Y%m%d  %H:%M:%S')
         df.set_index('Date', inplace=True)
-        print("creating dataframe")
+        print("creating dataframe for reqId: ", reqId)
         print(df)
         return super().historicalDataEnd(reqId, start, end)
+
+    def historicalTicksBidAsk(self, reqId: int, ticks: ListOfHistoricalTick, done: bool):
+        print("1")
+        for tick in ticks:
+            print("HistoricalTick. ReqId:", reqId, tick)
 
     def error(
         self, reqId: TickerId, errorCode : int, errorString : str , advancedOrderRejectJson=""):

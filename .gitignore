@@ -17,3 +17,4 @@ bin-release/
 # should NOT be excluded as they contain compiler settings and other important
 # information for Eclipse / Flash Builder.
 ib-gateway.env
+ibgateway-10.30.1u-standalone-linux-x64.sh
