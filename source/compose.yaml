@@ -1,0 +1,64 @@
+name: the-pythoness
+
+services:
+  ib-gateway:
+    restart: always
+    image: ghcr.io/gnzsnz/ib-gateway:stable
+    environment:
+#########################################################################################
+      TWS_PASSWORD_FILE: /run/secrets/tws_password
+      VNC_SERVER_PASSWORD_FILE: /run/secrets/vnc_server_password
+      SSH_PASSPHRASE_FILE: /run/secrets/ssh_passphrase
+#########################################################################################
+      TWS_USERID: "diannlei888"
+#########################################################################################
+      TRADING_MODE: ${TRADING_MODE:-paper}
+      TWS_SETTINGS_PATH: ${TWS_SETTINGS_PATH:-}
+      TWS_ACCEPT_INCOMING: ${TWS_ACCEPT_INCOMING:-}
+      READ_ONLY_API: ${READ_ONLY_API:-no}
+      TWOFA_TIMEOUT_ACTION: ${TWOFA_TIMEOUT_ACTION:-exit}
+      BYPASS_WARNING: ${BYPASS_WARNING:-}
+      AUTO_RESTART_TIME: ${AUTO_RESTART_TIME:-}
+      AUTO_LOGOFF_TIME: ${AUTO_LOGOFF_TIME:-}
+      TWS_COLD_RESTART: ${TWS_COLD_RESTART:-}
+      SAVE_TWS_SETTINGS: ${SAVE_TWS_SETTINGS:-}
+      RELOGIN_AFTER_TWOFA_TIMEOUT: ${RELOGIN_AFTER_TWOFA_TIMEOUT:-no}
+      TWOFA_EXIT_INTERVAL: ${TWOFA_EXIT_INTERVAL:-60}
+      TWOFA_DEVICE: ${TWOFA_DEVICE:-}
+      EXISTING_SESSION_DETECTED_ACTION: ${EXISTING_SESSION_DETECTED_ACTION:-primary}
+      ALLOW_BLIND_TRADING: ${ALLOW_BLIND_TRADING:-no}
+      TIME_ZONE: ${TIME_ZONE:-Etc/UTC}
+      TZ: ${TIME_ZONE:-Etc/UTC}
+      CUSTOM_CONFIG: ${CUSTOM_CONFIG:-NO}
+      JAVA_HEAP_SIZE: ${JAVA_HEAP_SIZE:-}
+      SSH_TUNNEL: ${SSH_TUNNEL:-}
+      SSH_OPTIONS: ${SSH_OPTIONS:-}
+      SSH_ALIVE_INTERVAL: ${SSH_ALIVE_INTERVAL:-}
+      SSH_ALIVE_COUNT: ${SSH_ALIVE_COUNT:-}
+      SSH_REMOTE_PORT: ${SSH_REMOTE_PORT:-}
+      SSH_USER_TUNNEL: ${SSH_USER_TUNNEL:-}
+      SSH_RESTART: ${SSH_RESTART:-}
+      SSH_VNC_PORT: ${SSH_VNC_PORT:-}
+#########################################################################################
+    secrets:
+      - tws_password
+      - ssh_passphrase
+      - vnc_server_password
+  ib-client:
+    restart: always
+    build:
+      context: backend/ib-client
+    depends_on:
+      ib-gateway:
+        condition: service_started
+    secrets:
+      - tws_password
+      - ssh_passphrase
+      - vnc_server_password
+secrets:
+  tws_password:
+    file: tws-password-file.txt
+  ssh_passphrase:
+    file: ssh-passphrase-file.txt
+  vnc_server_password:
+    file: vnc-server-password-file.txt
