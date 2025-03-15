@@ -6,10 +6,9 @@ services:
     image: ghcr.io/gnzsnz/ib-gateway:stable
     environment:
 #########################################################################################
-      TWS_PASSWORD_FILE: /run/secrets/tws_password
-      VNC_SERVER_PASSWORD_FILE: /run/secrets/vnc_server_password
-      SSH_PASSPHRASE_FILE: /run/secrets/ssh_passphrase
-#########################################################################################
+      TWS_PASSWORD_FILE: ${TWS_PASSWORD_FILE:-/run/secrets/tws_password}
+      SSH_PASSPHRASE_FILE: ${SSH_PASSPHRASE_FILE:-/run/secrets/ssh_passphrase}
+      VNC_SERVER_PASSWORD_FILE: ${VNC_SERVER_PASSWORD_FILE:-/run/secrets/vnc_server_password}
       TWS_USERID: "diannlei888"
 #########################################################################################
       TRADING_MODE: ${TRADING_MODE:-paper}
@@ -45,7 +44,7 @@ services:
       - ssh_passphrase
       - vnc_server_password
   ib-client:
-    restart: always
+    restart: no
     build:
       context: backend/ib-client
     depends_on:

@@ -7,7 +7,7 @@ import time
 from datetime import datetime, timezone
 
 if __name__ == "__main__":
-    port = 4004
+    port = 7499
     client_id = 0
 
     ibclient = ibcl.IBClient()
@@ -22,5 +22,7 @@ if __name__ == "__main__":
     contract.exchange = "CME"
     contract.currency = "USD"
     contract.lastTradeDateOrContractMonth = "202503"
+
+    print(locals())
 
     ibclient.reqIds(0)
