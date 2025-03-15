@@ -1,4 +1,4 @@
-import IBApi as ib
+import IBClient as ibclient
 import ibapi.contract as contract
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -10,8 +10,7 @@ if __name__ == "__main__":
     port = 4002
     client_id = 1
 
-    api = ib.IBApi()
-    api.connect("127.0.0.1", port, client_id)
+    api = ibclient.IBClient("127.0.0.1", port, client_id)
 
     api_thread = threading.Thread(target=api.run, daemon=True)
     api_thread.start()

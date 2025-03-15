@@ -2,7 +2,7 @@ from ibapi.client import *
 from ibapi.wrapper import *
 import pandas as pd
 
-class IBApi(EClient, EWrapper):
+class IBClient(EClient, EWrapper):
     def __init__(self):
         EClient.__init__(self, self)
         self.data = []
