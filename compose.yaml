@@ -4,8 +4,21 @@ services:
   ib-gateway:
     restart: always
     image: ghcr.io/gnzsnz/ib-gateway:stable
-    env_file: "ib-gateway.env"
+    env_file: source/environments/ib-gateway.env
+    networks:
+    - ib
+  ibapi-client:
+    depends_on:
+      - ib-gateway
+    restart: no
+    build:
+      context: source/backend/pythoness-services/ibapi-client
+      dockerfile: Dockerfile
+    volumes:
+      - .:/ibapi-client
+    networks:
+    - ib
     ports:
-      - "127.0.0.1:4001:4003"
-      - "127.0.0.1:4002:4004"
-      - "127.0.0.1:5900:5900"
+    - "5678:5678"
+networks:
+  ib:
